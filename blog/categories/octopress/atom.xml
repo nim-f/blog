@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Octopress | Заметки о фронтэнде]]></title>
+  <link href="http://nim-f.github.io/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://nim-f.github.io/"/>
+  <updated>2016-01-01T13:10:56+02:00</updated>
+  <id>http://nim-f.github.io/</id>
+  <author>
+    <name><![CDATA[Ann R]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Первый пост!]]></title>
+    <link href="http://nim-f.github.io/blog/2015/12/27/initial-post/"/>
+    <updated>2015-12-27T08:42:25+02:00</updated>
+    <id>http://nim-f.github.io/blog/2015/12/27/initial-post</id>
+    <content type="html"><![CDATA[<p>Недавно, заблудившись в закладках своего браузера, пытасясь найти нужную ссылку на стаковерфлоу среди вязания и милых щеночков, я осознала потребность аккумулировать свой опыт в верстке и js-фреймворках в одном месте. Тогда, несколькими командами в консоли я создала этот блог (спасибо разработчикам Octopress), и теперь в нем я буду писать о своих открытиях и экспериментах (возможно, не только с фронтэндом), постить полезные штуки, которыми пользуюсь в работе  - прежде всего чтобы самой не забыть.
+</p>
+
+]]></content>
+  </entry>
+  
+</feed>

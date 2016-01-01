@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Заметки о фронтэнде]]></title>
-  <link href="http://nim-f.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Chrome | Заметки о фронтэнде]]></title>
+  <link href="http://nim-f.github.io/blog/categories/chrome/atom.xml" rel="self"/>
   <link href="http://nim-f.github.io/"/>
   <updated>2016-01-01T13:10:56+02:00</updated>
   <id>http://nim-f.github.io/</id>
@@ -21,14 +21,8 @@
     <content type="html"><![CDATA[<p>Чем сложнее сайт - тем причудливее и трудноуловимее баги. Например, использование всеми любимого свойства transform вызывает у webkit-браузеров массу странностей в отрисовке страницы - проблемы со сглаживанием шрифтов, дергающиеся при ховере блоки и многое другое. Далеко ходить за примерами не надо: <!-- more --> вот есть два блока, один в другом, и к ним применено свойство </p>
 
 
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">transform</span><span class="o">:</span> <span class="nt">skew</span><span class="o">(</span><span class="nt">19deg</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
+<pre><code class="css ">transform: skew(19deg);
+</code></pre>
 
 <p>Вроде бы все прекрасно, но... пиксели родительского блока почему-то выползают из-под дочернего, едва заметно, но достаточно, чтобы вызвать недовольство клиента и багрепорт в мой адрес.</p>
 
@@ -45,27 +39,11 @@
 <p>Решение простое - к родительскому div'у этих двух элементов добавить следующие свойства:</p>
 
 
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">-webkit-transform-style</span><span class="o">:</span> <span class="nt">preserve-3d</span><span class="o">;</span>
-</span><span class='line'><span class="nt">-webkit-backface-visibility</span><span class="o">:</span> <span class="nt">hidden</span><span class="o">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<pre><code class="css ">    -webkit-transform-style: preserve-3d; 
+    -webkit-backface-visibility: hidden;
+</code></pre>
 
 <p>Теперь края у элеметов ровные, <s>гладкие и шелковистые</s>, все красиво и все довольны :)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Первый пост!]]></title>
-    <link href="http://nim-f.github.io/blog/2015/12/27/initial-post/"/>
-    <updated>2015-12-27T08:42:25+02:00</updated>
-    <id>http://nim-f.github.io/blog/2015/12/27/initial-post</id>
-    <content type="html"><![CDATA[<p>Недавно, заблудившись в закладках своего браузера, пытасясь найти нужную ссылку на стаковерфлоу среди вязания и милых щеночков, я осознала потребность аккумулировать свой опыт в верстке и js-фреймворках в одном месте. Тогда, несколькими командами в консоли я создала этот блог (спасибо разработчикам Octopress), и теперь в нем я буду писать о своих открытиях и экспериментах (возможно, не только с фронтэндом), постить полезные штуки, которыми пользуюсь в работе  - прежде всего чтобы самой не забыть.
-</p>
-
 ]]></content>
   </entry>
   
