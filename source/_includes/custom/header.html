@@ -1,6 +1,14 @@
 <hgroup>
+  {% comment %}
   <h1><a href="{{ root_url }}/">{{ site.title }}</a></h1>
+  {% endcomment %}
+
   {% if site.subtitle %}
     <h2>{{ site.subtitle }}</h2>
   {% endif %}
+
 </hgroup>
+
+<ul class="tags_list">
+  {% category_list [counter:true] %}
+</ul>
