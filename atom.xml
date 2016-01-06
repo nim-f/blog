@@ -4,7 +4,7 @@
   <title><![CDATA[Заметки о фронтэнде]]></title>
   <link href="http://nim-f.github.io/atom.xml" rel="self"/>
   <link href="http://nim-f.github.io/"/>
-  <updated>2016-01-06T15:11:08+02:00</updated>
+  <updated>2016-01-06T15:12:39+02:00</updated>
   <id>http://nim-f.github.io/</id>
   <author>
     <name><![CDATA[Ann R]]></name>
@@ -24,6 +24,11 @@
 
 
 <p>Cordova - это open-sourse проект, позволяющий создавать программы для мобильных устройств, используя стандартные инструменты веб-разработчика: HTML, CSS и Javascript. По сути, мы просто пишем сайт, а потом запускаем в консоли волшебную команду, и она превращает его в приложение для выбранных платформ. Документация в подробностях здесь - <a href="https://cordova.apache.org" target="_blank">www.cordova.apache.org</a>, и я постараюсь ее не пересказывать, а сосредоточиться  на руководстве к действию.</p>
+
+
+
+
+<!-- more -->
 
 
 
