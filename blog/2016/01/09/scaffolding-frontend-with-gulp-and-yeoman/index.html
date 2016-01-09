@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Заметки о фронтэнде</title>
+  <title>Как облегчить себе жизнь с помощью Gulp и Yeoman - Заметки о фронтэнде</title>
   <meta name="author" content="Ann R">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nim-f.github.io/">
+  <link rel="canonical" href="http://nim-f.github.io/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Заметки о фронтэнде" type="application/atom+xml">
@@ -70,15 +70,12 @@
 </header>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman/">Как облегчить себе жизнь с помощью Gulp и Yeoman</a></h1>
+      <h1 class="entry-title">Как облегчить себе жизнь с помощью Gulp и Yeoman</h1>
     
     
       <p class="meta">
@@ -94,7 +91,7 @@
   </header>
 
 
-  <div class="entry-content"><p>В работе фрондэнд разработчика есть существенный недостаток - обилие рутинных задач, которые повторяются в каждом проекте. Либо настраивать для каждого проекта сборщик (Gulp или Grunt), шаблонизатор, препроцессор, подключить файлы скриптов и css, а потом создавать html-файл и писать в нем одни и те же обязательные теги, либо вообще не заморачиваться с модными штучками и хардкодить по-старинке на статичном html/css… И то, и другое довольно скучно и занимает массу драгоценного времени. Однажды некоторым особо-продвинутым фронтэндерам пришло в голову собирать для себя стартовый шаблон проекта и начинать разработку не с массы однообразных действий, а с команды git clone «бла-бла-бла». Но человеческая лень пошла дальше, и появился Yeoman - инструмент скаффолдинга проектов (и их отдельных частей).</p>
+<div class="entry-content"><p>В работе фрондэнд разработчика есть существенный недостаток - обилие рутинных задач, которые повторяются в каждом проекте. Либо настраивать для каждого проекта сборщик (Gulp или Grunt), шаблонизатор, препроцессор, подключить файлы скриптов и css, а потом создавать html-файл и писать в нем одни и те же обязательные теги, либо вообще не заморачиваться с модными штучками и хардкодить по-старинке на статичном html/css… И то, и другое довольно скучно и занимает массу драгоценного времени. Однажды некоторым особо-продвинутым фронтэндерам пришло в голову собирать для себя стартовый шаблон проекта и начинать разработку не с массы однообразных действий, а с команды git clone «бла-бла-бла». Но человеческая лень пошла дальше, и появился Yeoman - инструмент скаффолдинга проектов (и их отдельных частей).</p>
 
 <p>Тут надо пояснить, что такое вообще этот скаффолдинг. Тем, кто знаком с Ruby on Rails и некоторыми другими фреймворками, слово покажется знакомым. Там команда generate scaffold широко используется для генерации каркаса приложения и отдельных его частей  - моделей, контроллеров и представлений. В случае с Yeoman генерируется целый проект - это может быть обычное веб- или мобильное приложение или шаблон для разработки с использованием фреймворка - Angular.js, React.js, Backbone.js и тд. Полный список генераторов здесь - <a href="http://yeoman.io/generators/.">http://yeoman.io/generators/.</a> Впрочем, этот список можно расширить, написав генератор самостоятельно, если существующие не устраивают.</p>
 
@@ -428,123 +425,62 @@
 
 <p>Теперь все готово для того, чтобы делать реальный проект с использованием продвинутых фронтэнд-технологий вместо старого-доброго html/css.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/01/06/make-simple-mobile-app-with-cordova-and-angularjs/">Как сделать простое мобильное приложение с помощью Apache Cordova и AngularJS</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2016-01-06T10:50:21+02:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>10:50 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Все мои планы на долгие рождественские выходные полетели коту под хвост из-за погоды. Сначала снег, а я на летней резине. Потом оттепель, гололед, лужи, дождь, туман, все разом - от одного взгляда за окно хочется еще глубже залезть под одеяло. Вместо того, чтобы слоняться по дому в тоске, я решила попробовать то, чего никогда не делала - написать мобильное приложение и поставить его на свой android-смартфон. А в случае успеха написать небольшой гайд для таких же новичков, как я.</p>
-
-
-
-
-<p>Cordova - это open-sourse проект, позволяющий создавать программы для мобильных устройств, используя стандартные инструменты веб-разработчика: HTML, CSS и Javascript. По сути, мы просто пишем сайт, а потом запускаем в консоли волшебную команду, и она превращает его в приложение для выбранных платформ. Документация в подробностях здесь - <a href="https://cordova.apache.org" target="_blank">www.cordova.apache.org</a>, и я постараюсь ее не пересказывать, а сосредоточиться  на руководстве к действию.</p>
-
-
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/01/06/make-simple-mobile-app-with-cordova-and-angularjs/">Read on &rarr;</a>
-    </footer>
   
 
+<span class="byline author vcard">Написала <span class="fn">Ann R</span></span>
 
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2016/01/01/webkit-extra-pixels/">Webkit, Transform и лишние пиксели</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
 
-<time class='entry-date' datetime='2016-01-01T11:25:23+02:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2016</span></span> <span class='time'>11:25 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Чем сложнее сайт - тем причудливее и трудноуловимее баги. Например, использование всеми любимого свойства transform вызывает у webkit-браузеров массу странностей в отрисовке страницы - проблемы со сглаживанием шрифтов, дергающиеся при ховере блоки и многое другое. Далеко ходить за примерами не надо: </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/01/01/webkit-extra-pixels/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time class='entry-date' datetime='2016-01-09T19:33:08+02:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>7:33 pm</span></time>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/12/27/initial-post/">Первый пост!</a></h1>
-    
-    
-      <p class="meta">
-        
 
-
-
-
-<time class='entry-date' datetime='2015-12-27T08:42:25+02:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:42 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Недавно, заблудившись в закладках своего браузера, пытасясь найти нужную ссылку на стаковерфлоу среди вязания и милых щеночков, я осознала потребность аккумулировать свой опыт в верстке и js-фреймворках в одном месте. Тогда, несколькими командами в консоли я создала этот блог (спасибо разработчикам Octopress), и теперь в нем я буду писать о своих открытиях и экспериментах (возможно, не только с фронтэндом), постить полезные штуки, которыми пользуюсь в работе  - прежде всего чтобы самой не забыть.
-</p>
-
-</div>
+<span class="categories">
   
+    <a class='category' href='/blog/categories/css/'>css</a>, <a class='category' href='/blog/categories/gulp/'>gulp</a>, <a class='category' href='/blog/categories/jade/'>jade</a>, <a class='category' href='/blog/categories/nodejs/'>nodejs</a>, <a class='category' href='/blog/categories/stylus/'>stylus</a>, <a class='category' href='/blog/categories/yeoman/'>yeoman</a>
   
+</span>
 
 
-    </article>
+    </p>
+    
+      <div class="sharing">
   
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
+  <div class="twitter">
+    <a href="//twitter.com/share" class="twitter-share-button" data-url="http://nim-f.github.io/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman/" data-via="" data-counturl="http://nim-f.github.io/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman/" >Tweet</a>
   </div>
+  
+  
+  
+  <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>
+  
 </div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/06/make-simple-mobile-app-with-cordova-and-angularjs/" title="Previous Post: Как сделать простое мобильное приложение с помощью Apache Cordova и AngularJS">&laquo; Как сделать простое мобильное приложение с помощью Apache Cordova и AngularJS</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Комментарии</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -577,6 +513,7 @@
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -591,7 +528,10 @@
       var disqus_shortname = 'rthewheel';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nim-f.github.io/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman/';
+        var disqus_url = 'http://nim-f.github.io/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

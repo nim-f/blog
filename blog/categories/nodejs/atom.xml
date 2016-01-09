@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Nodejs | Заметки о фронтэнде]]></title>
   <link href="http://nim-f.github.io/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://nim-f.github.io/"/>
-  <updated>2016-01-06T15:12:39+02:00</updated>
+  <updated>2016-01-09T20:22:48+02:00</updated>
   <id>http://nim-f.github.io/</id>
   <author>
     <name><![CDATA[Ann R]]></name>
@@ -12,6 +12,236 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Как облегчить себе жизнь с помощью Gulp и Yeoman]]></title>
+    <link href="http://nim-f.github.io/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman/"/>
+    <updated>2016-01-09T19:33:08+02:00</updated>
+    <id>http://nim-f.github.io/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman</id>
+    <content type="html"><![CDATA[<p>В работе фрондэнд разработчика есть существенный недостаток - обилие рутинных задач, которые повторяются в каждом проекте. Либо настраивать для каждого проекта сборщик (Gulp или Grunt), шаблонизатор, препроцессор, подключить файлы скриптов и css, а потом создавать html-файл и писать в нем одни и те же обязательные теги, либо вообще не заморачиваться с модными штучками и хардкодить по-старинке на статичном html/css… И то, и другое довольно скучно и занимает массу драгоценного времени. Однажды некоторым особо-продвинутым фронтэндерам пришло в голову собирать для себя стартовый шаблон проекта и начинать разработку не с массы однообразных действий, а с команды git clone «бла-бла-бла». Но человеческая лень пошла дальше, и появился Yeoman - инструмент скаффолдинга проектов (и их отдельных частей).</p>
+
+<p>Тут надо пояснить, что такое вообще этот скаффолдинг. Тем, кто знаком с Ruby on Rails и некоторыми другими фреймворками, слово покажется знакомым. Там команда generate scaffold широко используется для генерации каркаса приложения и отдельных его частей  - моделей, контроллеров и представлений. В случае с Yeoman генерируется целый проект - это может быть обычное веб- или мобильное приложение или шаблон для разработки с использованием фреймворка - Angular.js, React.js, Backbone.js и тд. Полный список генераторов здесь - <a href="http://yeoman.io/generators/.">http://yeoman.io/generators/.</a> Впрочем, этот список можно расширить, написав генератор самостоятельно, если существующие не устраивают.</p>
+
+<p>Как установить Yeoman и популярный генератор webapp рассказывается в официальной документации - <a href="http://yeoman.io/.">http://yeoman.io/.</a> Webapp использует sass, а я бы хотела less или вообще stylus, а еще - jade в качестве шаблонизатора. Поэтому я выбрала Yeogurt - он показался мне более универсальным, потому что на стадии создания проекта предоставляет возможность выбрать шаблонизатор - jade или nunjucks, препроцессор - Less, Sass, или Stylus, и инструменты тестирования - Jasmine или Mocha + Chai. В общем, можно собрать проект на любой вкус. Приятный бонус - возможность хранить контент в json-формате, а не вписывать его статично в шаблон.</p>
+
+<p>Итак, приступим. Node.js у вас конечно же установлен, но если он давно не обновлялся, лучше взять версию посвежее, иначе Yeoman будет ругаться.</p>
+
+<p>Устанавливаем основной инструментарий глобально:</p>
+
+<pre><code>npm install -g yo bower grunt-cli gulp  
+</code></pre>
+
+<p>Теперь нужно поставить генератор, создать папку проекта и запустить его:</p>
+
+<pre><code>npm install -g generator-yeogurt
+mkdir my-new-project &amp;&amp; cd $_
+yo yeogurt
+</code></pre>
+
+<p>Отвечаем на вопросы генератора, и вуаля - болванка для проекта готова. Запускаем сервер:</p>
+
+<pre><code>gulp serve
+</code></pre>
+
+<p>Чтобы увидеть стартовую страницу проекта, нужно зайти на localhost:3000. Это дефолтный адрес, можно вписать любой порт в файл package.json, если 3000 у вас уже чем-то занят.</p>
+
+<pre><code class="json package.json">
+  "config": {
+    "//": "Local Server Settings",
+    "host": "127.0.0.1",
+    "port": "3000",
+    "baseUrl": "./",
+
+} 
+</code></pre>
+
+<p>В документации есть описание структуры проекта - что в каких каталогах лежит, впрочем, все достаточно очевидно <a href="https://github.com/larsonjj/generator-yeogurt#page">https://github.com/larsonjj/generator-yeogurt#page</a></p>
+
+<p>Кстати, в проект заботливо включен и .gitignore файл, так что об этом беспокоиться тоже не нужно.</p>
+
+<p>Окружение готово. Осталось понять, как оно может облегчить жизнь разработчику. Допустим, я хочу создать header для сайта. Для этого можно воспользоваться генератором модулей. Нужно запустить команду:</p>
+
+<pre><code class="bash">
+yo yeogurt:module header
+</code></pre>
+
+<p>И в ответ получим сообщение о том, что  следующие файлы созданы:</p>
+
+<pre><code class="bash">
+   create src/_modules/header/header.jade
+   create src/_modules/header/header.js
+   create src/_modules/header/tests/header.test.js
+   create src/_modules/header/header.styl
+</code></pre>
+
+<p>Посмотрим, что там нагенерировалось. В файле header.jade что-то не похожее на привычный html:</p>
+
+<pre><code class="jade header.jade ">
+mixin header(spec)
+  - spec = spec || {}
+  - spec.__class = spec.__class || ''
+
+  div(class=spec.__class)&amp;attributes(attributes)
+    p This is an example paragraph for the header module
+</code></pre>
+
+<p>Поэтому здесь потребуется небольшое лирическое отступление и помощь документации с сайта <a href="http://jade-lang.com/.">http://jade-lang.com/.</a> Миксин - это код, который можно использовать многократно, передавая ему разные параметры, то есть, что-то вроде функции. Например, чтобы отобразить содержимое header.jade,
+нужно подключить его в файле index.jade, вот так:</p>
+
+<pre><code class="jade index.jade">
+include _modules/header/header
+</code></pre>
+
+<p>Расширение файла писать не обязательно, jade достаточно умен, чтобы не пытаться подключать js или css :)</p>
+
+<p>Затем надо вставить сам миксин, например, так:</p>
+
+<pre><code class="jade index.jade">
+block content
+  div #[+header]
+</code></pre>
+
+<p>Теперь переходим в браузер, и даже не нужно жать F5, чтобы обновить страницу - gulp уже сделал это в момент сохранения .jade файла - изменения уже видны. Но в случае с header’ом польза миксеров недостаточно очевидна. Лучше это ясно на примере с миксином field. Генерируем модуль с таким названием:</p>
+
+<pre><code class="bash">yo yeogurt:module field
+</code></pre>
+
+<p>Получается то же самое, что и в предыдущем примере. Открываем файл field.jade и заменяем дефолтный код на наш собственный:</p>
+
+<pre><code class="jade field.jade ">mixin field(name, type, value, placeholder)
+  input(type=type, name=name, value=value, placeholder=placeholder)
+</code></pre>
+
+<p>В index.jade вставляем миксины с параметрами:</p>
+
+<pre><code class="jade index.jade">
+include _modules/field/field
+
+block content
+  div #[+header]
+
+ #[+field('name', 'text', '', 'Enter your name')]
+ #[+field('email', 'email', '', 'Enter e-mail address')]
+</code></pre>
+
+<p>Конечно, если нужно добавить всего пару полей, создавать миксин нет смысла, но для повторяющихся элементов - например, на страницах с длинными формами регистраций или заявок, эта возможность очень полезна. Вообще, jade - это тема для отдельного поста, поэтому тут я с ним, пожалуй, закруглюсь, и оставлю вот эту ссылку -
+<a href="https://medium.com/@_jh3y/why-dont-more-people-know-about-use-jade-an-intro-to-jade-5c34422c9b4d#.6tqyps5rx">https://medium.com/@_jh3y/why-dont-more-people-know-about-use-jade-an-intro-to-jade-5c34422c9b4d#.6tqyps5rx</a></p>
+
+<p>Теперь мне не терпится попробовать возможность хранить контент в json-файлах. Надо создать один такой для меню сайта в шапке:</p>
+
+<pre><code class="json src/_data/menu.json">
+[
+  {
+    "name" : "Home",
+    "link" : "/"
+  }, 
+  {
+    "name" : "About",
+    "link" : "/about"
+  },
+  {
+    "name" : "Contacts",
+    "link" : "/contacts"
+  }
+
+]
+</code></pre>
+
+<p>Для вывода массива можно воспользоваться функцией итерации в jade. Это будет выглядеть так:</p>
+
+<pre><code class="jade header.jade">
+    ul
+      each val, index in site.data.menu
+        li
+          a(href=val.link)= val.name
+</code></pre>
+
+<p>Лаконично, красиво и никаких незакрытых тегов. И вот оно - меню в шапке готово.</p>
+
+<p>Теперь добавим стили. Stylus позволяет придерживаться такой же простоты синтаксиса в css. Для начала импортируем файл модуля header в  _styles/main.styl</p>
+
+<pre><code class="css _styles/main.styl">
+@import '../_modules/header/header';
+</code></pre>
+
+<p>Теперь можно делать все что угодно - выкинуть из кода все скобки, двоеточия и точки с запятыми, вводить переменные, задавать сложные селекторы отступами:</p>
+
+<pre><code class="css _modules/header/header.styl">
+font-size = 14px
+font-family = 'PT Sans', Arial
+link-color = #0266d6
+ul
+  li
+    display inline-block
+    font font-size font-family
+
+    a:link, a:visited, a:active
+      color link-color
+</code></pre>
+
+<p>Меньше кликов по клавиатуре, меньше кода, меньше вероятность ошибок - больше продуктивности и денег за качественно выполненную работу :) А Gulp и Yeoman сконвертируют в продакшн привычный css, понятный браузерам. Чтобы узнать про Stylus больше - добро пожаловать на офф. сайт <a href="http://stylus-lang.com/.">http://stylus-lang.com/.</a> В Stylus, как и в jade, есть возможность создавать миксины, функции и прочие приятные девелоперскому глазу штучки.</p>
+
+<p>Во всем этом великолепии мне не хватает возможности автоматической генерации спрайтов, но это можно исправить самостоятельно - вот полезная статья на эту тему <a href="http://habrahabr.ru/post/227945/.">http://habrahabr.ru/post/227945/.</a> Я попробовала, все сработало отлично. Главное - не забыть добавить таск  к build и serve, чтобы спрайты создавались при запуске проекта.</p>
+
+<pre><code class="js gulpfile.js">
+// Build production-ready code
+gulp.task('build', [
+  'sprite',
+  'copy',
+  'imagemin',
+  'jade',
+  'stylus',
+  'browserify'
+]);
+
+// Server tasks with watch
+gulp.task('serve', [
+  'sprite',
+  'imagemin',
+  'copy',
+  'jade',
+  'stylus',
+  'browserify',
+  'browserSync',
+  'watch'
+]);
+</code></pre>
+
+<p>Итак, меню у нас есть, а страниц, на которые оно ссылается - нету. Это легко исправить при помощи все того же генератора. Не требуется создавать файл вручную, достаточно выполнить в терминале команду</p>
+
+<pre><code>yo yeogurt:page about
+</code></pre>
+
+<p>Но на ней нет шапки сайта! Тут я поняла свою ошибку и переподключила header в файл _layouts/base.jade</p>
+
+<pre><code class="jade _layouts/base.jade">
+include ../_modules/header/header
+  block header
+    div #[+header]
+</code></pre>
+
+<p>Из файла index.jade все, что касается модуля header можно удалить.</p>
+
+<p>Аналогичным способом можно подключить в layout подвал сайта и другие элементы, или можно даже сгенерировать новый layout:</p>
+
+<pre><code>yo yeogurt:layout one-col
+</code></pre>
+
+<p>и создавать страницы, отличные от дефолтных, передавая параметр в команде</p>
+
+<pre><code>yo yeogurt:page contacts --layout=one-col
+</code></pre>
+
+<p>Когда работа над дизайном будет закончена, нужно запустить команду</p>
+
+<pre><code>gulp --production
+</code></pre>
+
+<p>чтобы получить версию сайта с минифицированным js/css и сжатыми картинками.</p>
+
+<p>Теперь все готово для того, чтобы делать реальный проект с использованием продвинутых фронтэнд-технологий вместо старого-доброго html/css.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Как сделать простое мобильное приложение с помощью Apache Cordova и AngularJS]]></title>

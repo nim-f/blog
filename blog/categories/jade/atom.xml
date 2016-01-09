@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Css | Заметки о фронтэнде]]></title>
-  <link href="http://nim-f.github.io/blog/categories/css/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Jade | Заметки о фронтэнде]]></title>
+  <link href="http://nim-f.github.io/blog/categories/jade/atom.xml" rel="self"/>
   <link href="http://nim-f.github.io/"/>
   <updated>2016-01-09T20:22:48+02:00</updated>
   <id>http://nim-f.github.io/</id>
@@ -240,40 +240,6 @@ include ../_modules/header/header
 <p>чтобы получить версию сайта с минифицированным js/css и сжатыми картинками.</p>
 
 <p>Теперь все готово для того, чтобы делать реальный проект с использованием продвинутых фронтэнд-технологий вместо старого-доброго html/css.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Webkit, Transform и лишние пиксели]]></title>
-    <link href="http://nim-f.github.io/blog/2016/01/01/webkit-extra-pixels/"/>
-    <updated>2016-01-01T11:25:23+02:00</updated>
-    <id>http://nim-f.github.io/blog/2016/01/01/webkit-extra-pixels</id>
-    <content type="html"><![CDATA[<p>Чем сложнее сайт - тем причудливее и трудноуловимее баги. Например, использование всеми любимого свойства transform вызывает у webkit-браузеров массу странностей в отрисовке страницы - проблемы со сглаживанием шрифтов, дергающиеся при ховере блоки и многое другое. Далеко ходить за примерами не надо: <!-- more --> вот есть два блока, один в другом, и к ним применено свойство </p>
-
-
-<pre><code class="css ">transform: skew(19deg);
-</code></pre>
-
-<p>Вроде бы все прекрасно, но... пиксели родительского блока почему-то выползают из-под дочернего, едва заметно, но достаточно, чтобы вызвать недовольство клиента и багрепорт в мой адрес.</p>
-
-
-<p><img src="http://nim-f.github.io/images/extrapixels.png" alt="webkit extra pixels" /></p>
-
-<p><i style="color: #9e9e9e; font-style: italic;">(кому не видно - нажмите пару раз command +)</i></p>
-
-<p>Я повертела эти блоки и так, и эдак, но результатов это не принесло. Пришлось подключать тяжелую артиллерию - stackoverflow, и после некоторого количества безуспешных экспериметов я этот коварный баг все-таки исправила!</p>
-
-
-<p></p>
-
-<p>Решение простое - к родительскому div'у этих двух элементов добавить следующие свойства:</p>
-
-
-<pre><code class="css ">    -webkit-transform-style: preserve-3d; 
-    -webkit-backface-visibility: hidden;
-</code></pre>
-
-<p>Теперь края у элеметов ровные, <s>гладкие и шелковистые</s>, все красиво и все довольны :)</p>
 ]]></content>
   </entry>
   
