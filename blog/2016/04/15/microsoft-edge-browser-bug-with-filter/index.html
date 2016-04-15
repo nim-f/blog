@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Неожиданный баг свойства Filter в браузере Edge - Заметки о фронтэнде</title>
+  <meta name="author" content="Ann R">
+
+  
+  <meta name="description" content="Пишу вам с подергивающимся глазом после полуторачасового брейнсторма в обнимку с виртуальной машиной и гуглом. Поэтому простите за неровный почерк. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nim-f.github.io/blog/2016/04/15/microsoft-edge-browser-bug-with-filter/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Заметки о фронтэнде" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-71875764-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <nav role="navigation">
+<ul class="main-navigation">
+  <li class="left_side logo"><a href="/"><span clas="bike">C</span> reinvent the wheel</a></li>
+  <li class="right_side"><a href="/">Блог</a></li>
+  <li class="right_side"><a href="/blog/archives">Архив</a></li>
+  <li class="right_side"><a href="/about">Обо мне</a></li>
+
+</ul>
+
+</nav>
+  <header role="banner"><hgroup>
+  
+
+  
+
+</hgroup>
+
+<ul class="tags_list">
+  <li><a href='/blog/categories/android'>android (1)</a></li><li><a href='/blog/categories/angularjs'>angularjs (1)</a></li><li><a href='/blog/categories/bugs'>bugs (1)</a></li><li><a href='/blog/categories/chrome'>chrome (1)</a></li><li><a href='/blog/categories/cordova'>cordova (1)</a></li><li><a href='/blog/categories/css'>css (3)</a></li><li><a href='/blog/categories/edge'>edge (1)</a></li><li><a href='/blog/categories/frontend'>frontend (1)</a></li><li><a href='/blog/categories/grayscale'>grayscale (1)</a></li><li><a href='/blog/categories/gulp'>gulp (1)</a></li><li><a href='/blog/categories/ie'>ie (1)</a></li><li><a href='/blog/categories/jade'>jade (1)</a></li><li><a href='/blog/categories/microsoft'>microsoft (1)</a></li><li><a href='/blog/categories/mobile'>mobile (1)</a></li><li><a href='/blog/categories/nodejs'>nodejs (2)</a></li><li><a href='/blog/categories/octopress'>octopress (1)</a></li><li><a href='/blog/categories/stylus'>stylus (1)</a></li><li><a href='/blog/categories/webkit'>webkit (1)</a></li><li><a href='/blog/categories/yeoman'>yeoman (1)</a></li>
+</ul>
+</header>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Неожиданный баг свойства Filter в браузере Edge</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-04-15T09:47:03+03:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>9:47 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Пишу вам с подергивающимся глазом после полуторачасового брейнсторма в обнимку с виртуальной машиной и гуглом. Поэтому простите за неровный почерк.</p>
+
+<p>Дизайнеры очень любят черно-белые картинки, которые становятся цветными по ховеру, а верстальщики <s>очень не любят дизайнеров</s> любят современные браузены за поддержку ими свойства filter: grayscale(<value>). Но не все так радостно, как хотелось бы. В свежих IE поддержку filter отрубили, поэтому приходится использовать костыли с jquery и svg.</p>
+
+<p>И вот когда, казалось бы, во всех браузерах, от IE6 до Safari, все работает, приходит багрепорт для браузера Edge. Тут-то начинается веселье.</p>
+
+<!-- more -->
+
+
+<p>Я, вообще-то, думала, что Edge - это то же самое, что IE, только с другим названием, но оказалось, что это совершенно другой браузер со своими багами и глюками.</p>
+
+<p>И вот в этом новом, усовершенствованном доблестными программистами майкрософта, браузере, который должен &ldquo;более лучше&rdquo; отображать контент и радовать быстротой javascript'a, по какой-то загадочной причине не работает filter: grayscale(100%), хотя заявлена его поддержка.</p>
+
+<p>Я попробовала всевозможные сочетания фильтров и префиксов к ним, но успеха это не принесло - картинки продолжали быть цветными мне назло. Более того, демо на других сайтах работали, а на моем, с точно такими-же css-свойствами, дословно скопированными - нет!</p>
+
+<p>Логично предположить, что, возможно, что-то не так в общих стилях на моем сайте. Я поотключала все ресеты, библиотеки миксинов и прочее, оставив только очевидный код, который никак не мог повлиять на те картинки, что должны быть черно-белыми. Не сработало.</p>
+
+<p>Тогда я просто стала комментить весь css по кусочкам. Только когда закомментила все стили, прописанный инлайном grayscale заработал! Ну хоть что-то.</p>
+
+<p>Осталось выяснить, что именно мешает применять фильтр, но это уже дело техники и терпения. Я комментировала код по кусочкам, пока не дошла до дива-обертки, к которому применялись такие стили:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'>  <span class="nt">border-radius</span><span class="o">(</span><span class="nt">10px</span><span class="o">)</span>
+</span><span class='line'>  <span class="nt">box-shadow</span><span class="o">(</span><span class="nt">1px</span> <span class="nt">1px</span> <span class="nt">55px</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="nc">.3</span><span class="o">))</span>
+</span><span class='line'>  <span class="nt">max-width</span> <span class="nt">1486px</span>
+</span><span class='line'>  <span class="nt">margin</span> <span class="nt">0</span> <span class="nt">auto</span>
+</span><span class='line'>  <span class="nt">position</span> <span class="nt">relative</span>
+</span><span class='line'>  <span class="nt">padding-bottom</span> <span class="nt">25</span><span class="o">%</span>
+</span><span class='line'>  <span class="nt">overflow</span> <span class="nt">hidden</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Казалось бы, ничего криминального. Но как только я убрала отсюда border-radius, все заработало! Картиночки черно-белые, как надо. Но мне нужны круглые уголки, как же без них? Неужели придется выбирать или то, или другое?</p>
+
+<p>Добавила еще один див-обертку и вынесла border-radius и box-shadow к нему. Работает! На этом месте можно было бы успокоиться. Но мне стало интересно, почему с одним дивом не работает, а с двумя работает. Оказалось, что проблема не в самом border-radius, а в его сочетании с overflow: hidden;</p>
+
+<p>Чувствуете градус безумия? Если у родительского дива есть border-radius и overflow, то у дочерних элементов не работает filter!</p>
+
+<p>Думается мне, это еще не последний сюрприз, и edge еще затмит дурную славу IE&hellip;</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Написала <span class="fn">Ann R</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-04-15T09:47:03+03:00'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2016</span></span> <span class='time'>9:47 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/css/'>css</a>, <a class='category' href='/blog/categories/edge/'>edge</a>, <a class='category' href='/blog/categories/grayscale/'>grayscale</a>, <a class='category' href='/blog/categories/ie/'>ie</a>, <a class='category' href='/blog/categories/microsoft/'>microsoft</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <div class="twitter">
+    <a href="//twitter.com/share" class="twitter-share-button" data-url="http://nim-f.github.io/blog/2016/04/15/microsoft-edge-browser-bug-with-filter/" data-via="" data-counturl="http://nim-f.github.io/blog/2016/04/15/microsoft-edge-browser-bug-with-filter/" >Tweet</a>
+  </div>
+  
+  
+  
+  <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman/" title="Previous Post: Как облегчить себе жизнь с помощью Gulp, Jade, Stylus и Yeoman">&laquo; Как облегчить себе жизнь с помощью Gulp, Jade, Stylus и Yeoman</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Комментарии</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Свежее</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/04/15/microsoft-edge-browser-bug-with-filter/">Неожиданный баг свойства Filter в браузере Edge</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/09/scaffolding-frontend-with-gulp-and-yeoman/">Как облегчить себе жизнь с помощью Gulp, Jade, Stylus и Yeoman</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/06/make-simple-mobile-app-with-cordova-and-angularjs/">Как сделать простое мобильное приложение с помощью Apache Cordova и AngularJS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2016/01/01/webkit-extra-pixels/">Webkit, Transform и лишние пиксели</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/12/27/initial-post/">Первый пост!</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - Ann R -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'rthewheel';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://nim-f.github.io/blog/2016/04/15/microsoft-edge-browser-bug-with-filter/';
+        var disqus_url = 'http://nim-f.github.io/blog/2016/04/15/microsoft-edge-browser-bug-with-filter/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
